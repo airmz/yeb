@@ -1,0 +1,104 @@
+<!--
+ * @Author: airmz
+ * @Date: 2021-12-14 19:39:38
+ * @LastEditTime: 2021-12-14 20:11:24
+ * @FilePath: \test\6.html
+-->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="shortcut icon" href="/air.ico">
+    <title>airMz</title>
+    <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.11/vue.global.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+
+    <script>
+        var a = [1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 2, 3, 3, 2, 2, 1, 23, 1, 23, 2, 3, 2,
+            3, 2, 3
+        ];
+        var b = '111111111222222333333323322123123232323';
+        const obj1 = {
+            age: 20,
+            name: 'xxx',
+            address: {
+                city: 'beijing'
+            },
+            arr: ['a', 'b', 'c']
+        }
+        const obj2 = deepClone(obj1)
+        obj2.address.city = "shanghai"
+        obj2.arr[0] = 'a1'
+        console.log(obj1.address.city)
+        console.log(obj1.arr[0])
+
+        function deepClone(obj = {}) {
+            if (typeof obj !== 'object' || obj == null) {
+                return obj
+            }
+            let result
+            if (obj instanceof Array) {
+                result = []
+            } else {
+                result = {}
+            }
+            for (let key in obj) {
+                if (obj.hasOwnProperty(key)) {
+                    result[key] = deepClone(obj[key])
+                }
+            }
+            return result
+        }
+        let result = [...new Set(a)];
+        console.log(result.toString())
+
+        function findMore(str) {
+            let arr = str.split('')
+            let obj = []
+            arr.forEach((item, index) => {
+                if (obj[item]) {
+                    obj[item]++
+                } else {
+                    obj[item] = 1
+                }
+            });
+            let name, maxCount = 0
+            for (let i in obj) {
+                if (obj[i] > maxCount) {
+                    maxCount = obj[i]
+                    name = i
+                }
+            }
+            return '出现次数最多的是' + name + '，一共有' + maxCount + '次'
+        }
+        console.log(findMore(b))
+        console.log(Array.isArray(a))
+
+        // function foo(){
+        //      a=10
+        //     return function(){
+        //         setTimeout(() => {
+        //            console.log(a) 
+        //         }, 1000);
+        //     }
+        // }
+        // let myFn=foo();
+        // myFn();
+        for (var i = 0; i <= 5; i++) {
+            (function (i) {
+                setTimeout(() => {
+                    console.log(i)
+                }, 1000);
+            })(i)
+
+        }
+    </script>
+</body>
+
+</html>
